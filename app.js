@@ -5,9 +5,7 @@ var resident = require('./routes/resident');
 var official = require('./routes/official');
 var report = require('./routes/report');
 
-app.get("/",function(req,res){
-        res.send("<h1>Hello from EC2</h1>");
-});
+app.get("/",resident.addUser);
 
 
 app.listen(80);
