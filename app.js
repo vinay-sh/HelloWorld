@@ -5,9 +5,13 @@ var resident = require('./routes/resident');
 var official = require('./routes/official');
 var report = require('./routes/report');
 
+app.get("/",function(req, res){
+    console.log("hello");
+    res.send("Hello");
+})
 
 //request handlers for Resident
-app.post("/registerNewResident",resident.addNewResident);
+app.get("/registerNewResident",resident.addNewResident);
 app.post("/updateResident", resident.updateNewResident);
 app.get("/reports",resident.getResidentReports);
 app.post("/fileReport",resident.fileReport);
