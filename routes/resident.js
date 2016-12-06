@@ -11,7 +11,7 @@ exports.addNewResident = function(req, res){
 			result.status = TAG + "Unable to connect to DB";
 			res.json(result);
 		}else{
-    	    console.log(req);
+    	    console.log(req.body.email);
 			console.log(TAG + "Connected to DB");
 		}
     });
