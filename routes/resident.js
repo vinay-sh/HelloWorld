@@ -1,6 +1,7 @@
 var mongo = require("./dbconfig");
 
 var TAG = "RESIDENT : ";
+var result = {};
 
 exports.addNewResident = function(req, res){
     console.log(TAG + "Adding resident");
@@ -12,6 +13,7 @@ exports.addNewResident = function(req, res){
 			result.status = TAG + "Unable to connect to DB";
 			res.json(result);
 		}else{
+<<<<<<< HEAD
             var coll = mongo.collection('resident')
     	    console.log(req.body.email);
 			console.log(TAG + "Connected to DB");
@@ -36,7 +38,6 @@ exports.addNewResident = function(req, res){
             )
 		}
     });
-    res.send();
 };
 
 exports.updateNewResident = function (req,res) {
