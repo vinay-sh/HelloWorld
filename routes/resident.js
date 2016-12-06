@@ -13,7 +13,6 @@ exports.addNewResident = function(req, res){
 			result.status = TAG + "Unable to connect to DB";
 			res.json(result);
 		}else{
-<<<<<<< HEAD
             var coll = mongo.collection('resident')
     	    console.log(req.body.email);
 			console.log(TAG + "Connected to DB");
@@ -22,7 +21,7 @@ exports.addNewResident = function(req, res){
                     "_id": req.body.email,
                     "first_name": req.body.fname,
                     "last_name": req.body.lname,
-                    "email": req.body.email
+                    "email": req.body.email,
                     "address": req.body.address
                 },function(err, docs){
                     if(err){
@@ -91,11 +90,11 @@ exports.fileReport = function(req, res){
                         "latitude":req.body.lat,
                         "longitude":req.body.lon
                     },
-                    "description":req.bosy.des
-                    "size": req.body.size
-                    "severity": req.body.severity
-                    "status": req.body.status
-                    "date": req.body.date
+                    "description":req.bosy.des,
+                    "size": req.body.size,
+                    "severity": req.body.severity,
+                    "status": req.body.status,
+                    "date": req.body.date,
                     "time":req.body.time
 
 
