@@ -20,9 +20,9 @@ app.post("/updateReport",resident.fileReport);
 app.post("/deleteReport",resident.fileReport);
 
 //request handlers for Official
-app.post("/officialNewRegister",official.addNewOfficial);
-app.post("/updateOfficial",official.updateOfficial);
-app.post("/allReports",official.allreports);
+app.get("/officialNewRegister",official.addNewOfficial);
+app.get("/updateOfficial",official.updateOfficial);
+app.get("/allReports",official.allreports);
 
 
 
