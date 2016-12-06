@@ -1,6 +1,10 @@
 var express = require("express");
 var app = express();
 
+var bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.json());
+
 var resident = require('./routes/resident');
 var official = require('./routes/official');
 var report = require('./routes/report');
