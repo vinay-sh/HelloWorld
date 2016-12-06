@@ -34,7 +34,6 @@ exports.addNewOfficial = function(req, res){
 
         }
     });
-    res.send();
 };
 
 
@@ -50,7 +49,6 @@ exports.allreports = function(req, res){
             console.log(TAG + "Connected to DB");
         }
     });
-    res.send();
 };
 
 exports.updateOfficial = function(req, res){
@@ -86,5 +84,4 @@ exports.updateOfficial = function(req, res){
             )
         }
     });
-    res.send();
 };
