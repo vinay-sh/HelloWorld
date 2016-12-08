@@ -18,6 +18,8 @@ app.get("/getResidentData",resident.getResidentData);
 app.get("/fileReport",resident.fileReport);
 app.get("/updateReport",resident.fileReport);
 app.get("/deleteReport",resident.fileReport);
+app.get("/getReport",resident.getReport);
+
 
 //request handlers for Official
 app.get("/officialNewRegister",official.addNewOfficial);
