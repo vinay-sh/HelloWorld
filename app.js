@@ -24,7 +24,7 @@ app.get("/getReport",resident.getReport);
 //request handlers for Official
 app.get("/officialNewRegister",official.addNewOfficial);
 app.get("/updateOfficial",official.updateOfficial);
-app.get("/allReports",official.allreports);
+app.get("/getAllReports",official.getAllReport);
 
 
 

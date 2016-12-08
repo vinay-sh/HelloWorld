@@ -4,7 +4,7 @@ var db;
 var connected = false;
 //var url = "mongodb://<dbuser>:<dbpassword>@ds013891.mlab.com:13891/magicrentals";
 
-var url = "mongodb://localhost:27017/ireport";
+var url = "mongodb://localhost:27017/iReport";
 
 //var url = "mongodb://localhost:27017/magicrentals";
 

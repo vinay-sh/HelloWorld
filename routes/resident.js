@@ -203,10 +203,11 @@ exports.getReport = function(req, res){
 			res.json(result);
                     }
                 }
-              );
-        }
-    });
-};
+              ); 
+              }
+           }
+         );
+        };
 
 exports.deleteReport = function(req, res){
     console.log(TAG + "Deleting Report");
