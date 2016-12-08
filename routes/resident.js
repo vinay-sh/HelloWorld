@@ -20,7 +20,7 @@ exports.addNewResident = function(req, res){
                 {
                     "_id": req.body.email,
                     "name": req.body.name,
-                    "screenname": req.body.sname,
+                    "screenName": req.body.screenName,
                     "email": req.body.email,
                     "address": req.body.address
                 },function(err, docs){
@@ -49,7 +49,30 @@ exports.updateNewResident = function (req,res) {
             result.status = TAG + "Unable to connect to DB";
             res.json(result);
 		}else{
-			console.log(TAG + "Connected to DB");
+            var coll = mongo.collection('resident')
+            console.log(req.body.email);
+            console.log(TAG + "Connected to DB");
+            coll.update(
+                {
+                    "_id": req.body.email,},
+            {$set:{
+                "name": req.body.name,
+                "screenName": req.body.screenName,
+                "address": req.body.address
+            }
+                },function(err, docs){
+                    if(err){
+                        result.code=208;
+                        result.status="Failed to add the new resident to DB";
+                        res.json(result);
+                    }else{
+                        result.code=200;
+                        result.status="Successfulky added a new resident";
+                        res.json(result);
+                    }
+                }
+            )
+
 		}
     });
 };
@@ -69,8 +92,8 @@ exports.getResidentReports = function(req, res) {
             coll.findone(
                 {
                     "_id": req.body.email,
-                    "first_name": req.body.fname,
-                    "last_name": req.body.lname,
+                    "name": req.body.name,
+                    "screenName": req.body.screenName,
                     "email": req.body.email,
                     "address": req.body.address
                 },function(err, docs){
@@ -143,28 +166,9 @@ exports.updateReport = function(req, res){
             result.status = TAG + "Unable to connect to DB";
             res.json(result);
         }else{
-            var coll = mongo.collection('resident')
+
             console.log(TAG + "Connected to DB");
-            coll.update(
-                {"_id" : req.body.email},
-                {
-                    "_id": req.body.email,
-                    "name": req.body.name,
-                    "screenname": req.body.sname,
-                    "email": req.body.email,
-                    "address": req.body.address
-                },function(err, docs){
-                    if(err){
-                        result.code=208;
-                        result.status="Failed to add the new official to DB";
-                        res.json(result);
-                    }else{
-                        result.code=200;
-                        result.status="Successfully added a new official";
-                        res.json(result);
-                    }
-                }
-            )
+
         }
     });
 };
