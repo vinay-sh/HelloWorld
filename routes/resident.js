@@ -18,7 +18,7 @@ exports.addNewResident = function(req, res){
 			console.log(TAG + "Connected to DB");
             coll.insertOne(
                 {
-                    "resident_id": req.body.email,
+                    "_id": req.body.email,
                     "name": req.body.name,
                     "screenName": req.body.screenName,
                     "email": req.body.email,
@@ -50,11 +50,11 @@ exports.updateNewResident = function (req,res) {
             res.json(result);
 		}else{
             var coll = mongo.collection('resident')
-            console.log(req.body.id);
+            console.log(req.body.resident_id);
             console.log(TAG + "Connected to DB");
             coll.update(
                 {
-                    "resident_id": req.body.resident_id,},
+                    "_id": req.body.resident_id,},
             {$set:{
                 "name": req.body.name,
                 "screenName": req.body.screenName,
@@ -88,11 +88,11 @@ exports.updateSettings = function (req,res) {
             res.json(result);
         }else{
             var coll = mongo.collection('residentSettings')
-            console.log(req.body.id);
+            console.log(req.body.resident_id);
             console.log(TAG + "Connected to DB");
             coll.insertOne(
                 {
-                    "resident_id": req.body.resident_id,
+                    "_id": req.body.resident_id,
                     "emailNotification": req.body.emailNotification,
                     "statusChange": req.body.statusChange,
                     "anonymous": req.body.anonymous
@@ -128,10 +128,10 @@ exports.getResidentData = function(req, res) {
         }else{
             var coll = mongo.collection('resident')
             console.log(TAG + "Connected to DB");
-            	console.log(req.body.id);
+            	console.log(req.body.resident_id);
 		coll.findOne(
                 {
-                    "resident_id": req.body.resident_id
+                    "_id": req.body.resident_id
 
                 },function(err, docs){
                     if(err){
