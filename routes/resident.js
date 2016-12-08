@@ -78,6 +78,8 @@ exports.updateNewResident = function (req,res) {
 };
 
 exports.getResidentData = function(req, res) {
+
+
 	console.log(TAG + "Getting Resident Data");
     var result = {};
     mongo.connect(function (err, db) {
@@ -89,9 +91,10 @@ exports.getResidentData = function(req, res) {
         }else{
             var coll = mongo.collection('resident')
             console.log(TAG + "Connected to DB");
-            coll.findone(
+            	console.log(req.body.id);
+		coll.findOne(
                 {
-                    "_id": req.body.email
+                    "_id": req.body.id
 
                 },function(err, docs){
                     if(err){
@@ -101,7 +104,11 @@ exports.getResidentData = function(req, res) {
                     }else{
                         result.code=200;
                         result.status="Successfulky added a new resident";
-                        res.json(result);
+                        result.data = docs;
+
+			console.log(docs);
+			console.log(result.data);
+			 res.json(result);
                     }
                 }
             )
