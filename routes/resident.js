@@ -77,8 +77,8 @@ exports.updateNewResident = function (req,res) {
     });
 };
 
-exports.getResidentReports = function(req, res) {
-	console.log(TAG + "Getting Resident Reports");
+exports.getResidentData = function(req, res) {
+	console.log(TAG + "Getting Resident Data");
     var result = {};
     mongo.connect(function (err, db) {
         if(err){
@@ -91,11 +91,8 @@ exports.getResidentReports = function(req, res) {
             console.log(TAG + "Connected to DB");
             coll.findone(
                 {
-                    "_id": req.body.email,
-                    "name": req.body.name,
-                    "screenName": req.body.screenName,
-                    "email": req.body.email,
-                    "address": req.body.address
+                    "_id": req.body.email
+
                 },function(err, docs){
                     if(err){
                         result.code=208;

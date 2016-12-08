@@ -14,7 +14,7 @@ app.get("/",function(req, res){});
 //request handlers for Resident
 app.get("/registerNewResident",resident.addNewResident);
 app.post("/updateResident", resident.updateNewResident);
-app.get("/reports",resident.getResidentReports);
+app.get("/reports",resident.getResidentData);
 app.post("/fileReport",resident.fileReport);
 app.post("/updateReport",resident.fileReport);
 app.post("/deleteReport",resident.fileReport);
