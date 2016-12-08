@@ -19,6 +19,7 @@ app.get("/fileReport",resident.fileReport);
 app.get("/updateReport",resident.fileReport);
 app.get("/deleteReport",resident.fileReport);
 app.get("/getReport",resident.getReport);
+app.get("/updateSettings",resident.updateSettings);
 
 
 //request handlers for Official
@@ -26,6 +27,9 @@ app.get("/officialNewRegister",official.addNewOfficial);
 app.get("/updateOfficial",official.updateOfficial);
 app.get("/getAllReports",official.getAllReport);
 
+//updateSettings
+
+app.get("/updateSettings",resident.getAllReport);
 
 
 app.listen(80);

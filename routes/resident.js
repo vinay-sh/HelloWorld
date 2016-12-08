@@ -77,6 +77,43 @@ exports.updateNewResident = function (req,res) {
     });
 };
 
+exports.updateSettings = function (req,res) {
+    console.log(TAG + "Updating user Settings");
+    var result = {};
+    mongo.connect(function (err, db) {
+        if(err){
+            console.log(TAG + "Unable to connect to DB");
+            result.code = 209;
+            result.status = TAG + "Unable to connect to DB";
+            res.json(result);
+        }else{
+            var coll = mongo.collection('residentSettings')
+            console.log(req.body.id);
+            console.log(TAG + "Connected to DB");
+            coll.insertOne(
+                {
+                    "resident_id": req.body.resident_id,
+                    "emailNotification": req.body.emailNotification,
+                    "statusChange": req.body.statusChange,
+                    "anonymous": req.body.anonymous
+                },function(err, docs){
+                    if(err){
+                        result.code=208;
+                        result.status="Failed to add the new resident to DB";
+                        res.json(result);
+                    }else{
+                        result.code=200;
+                        result.status="Successfulky added a new resident";
+                        res.json(result);
+                    }
+                }
+            )
+
+        }
+    });
+};
+
+
 exports.getResidentData = function(req, res) {
 
 
