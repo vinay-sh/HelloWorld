@@ -13,11 +13,11 @@ app.get("/",function(req, res){});
 
 //request handlers for Resident
 app.get("/registerNewResident",resident.addNewResident);
-app.post("/updateResident", resident.updateNewResident);
+app.get("/updateResident", resident.updateNewResident);
 app.get("/reports",resident.getResidentData);
-app.post("/fileReport",resident.fileReport);
-app.post("/updateReport",resident.fileReport);
-app.post("/deleteReport",resident.fileReport);
+app.get("/fileReport",resident.fileReport);
+app.get("/updateReport",resident.fileReport);
+app.get("/deleteReport",resident.fileReport);
 
 //request handlers for Official
 app.get("/officialNewRegister",official.addNewOfficial);
