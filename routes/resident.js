@@ -192,8 +192,7 @@ exports.getReport = function(req, res){
             console.log(req.body.id);
             coll.find({
                     "_id":req.body.id
-                }
-                ,function(err, docs){
+                }).toArray(function(err, docs){
                     if(err){
                         result.code=208;
                         result.status="Failed to get report";
@@ -203,12 +202,11 @@ exports.getReport = function(req, res){
                         result.status="Successfully sent report";
                         result.data = docs;
 
-                        console.log(docs);
                         console.log(result.data);
                         res.json(result);
                     }
                 }
-            )
+            );
         }
     });
 };

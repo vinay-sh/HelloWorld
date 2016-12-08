@@ -36,38 +36,36 @@ exports.addNewOfficial = function(req, res){
     });
 };
 
-
-exports.allreports = function(req, res){
-    console.log(TAG + "Getting Reports");
+exports.getAllReport = function(req, res){
+    console.log(TAG + "Getting Report");
     var result = {};
-    mongo.connect(function(err, db){
+    mongo.connect(function (err, db) {
         if(err){
             console.log(TAG + "Unable to connect to DB");
             result.code = 209;
             result.status = TAG + "Unable to connect to DB";
             res.json(result);
         }else{
+
             var coll = mongo.collection("reports");
             console.log(TAG + "Connected to DB");
+            console.log(req.body.id);
             coll.find({
-                "_id":req.body.id
-            }
-                ,function(err, docs){
+            }).toArray(function(err, docs){
                     if(err){
                         result.code=208;
-                        result.status="Failed to add the new resident to DB";
+                        result.status="Failed to get report";
                         res.json(result);
                     }else{
                         result.code=200;
-                        result.status="Successfulky added a new resident";
+                        result.status="Successfully sent report";
                         result.data = docs;
 
-                        console.log(docs);
                         console.log(result.data);
                         res.json(result);
                     }
                 }
-            )
+            );
         }
     });
 };
