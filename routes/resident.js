@@ -130,23 +130,22 @@ exports.fileReport = function(req, res){
             var coll = mongo.collection('reports')
             console.log(TAG + "Connected to DB");
             coll.insertOne(
-                {
-                    "res_id": req.body.id,
-                       "latitude":req.body.lat,
-                        "longitude":req.body.lon,
-                    "description":req.body.desc,
-                    "size": req.body.size,
-                    "severity": req.body.severity,
-                    "status": req.body.status,
-                    //"date": req.body.date,
-                   // "time":req.body.time,
-                    "image":req.body.image
-
-
+               {                    
+			"resident_id": req.body.resident_id,
+                        "lat_loc":req.body.lat_loc,
+                        "lon_loc":req.body.lon_loc,
+                   	"desc_report":req.body.desc_litter,
+                    	"size_litter": req.body.size_litter,
+                    	"severity_litter": req.body.severity_litter,
+                    	"status_litter": req.body.status_litter,
+                    	"date": req.body.date,
+			"anonymoui_setting": req.body.anonymous_setting,
+                	//"time":req.body.time,
+                    	"image_litter":req.body.image_litter
                 },function(err, docs){
                     if(err){
                         result.code=208;
-                        result.status="Failed to add the new resident to DB";
+                        result.status="Failed to add new report";
                         res.json(result);
                     }else{
                         result.code=200;
@@ -189,11 +188,10 @@ exports.getReport = function(req, res){
 
             var coll = mongo.collection("reports");
             console.log(TAG + "Connected to DB");
-            console.log(req.body.id);
+            console.log(req.body.resident_id);
             coll.find({
-                    "_id":req.body.id
-                }
-                ,function(err, docs){
+                    "resident_id":req.body.resident_id
+                }).toArray(function(err, docs){
                     if(err){
                         result.code=208;
                         result.status="Failed to get report";
@@ -202,13 +200,10 @@ exports.getReport = function(req, res){
                         result.code=200;
                         result.status="Successfully sent report";
                         result.data = docs;
-
-                        console.log(docs);
-                        console.log(result.data);
-                        res.json(result);
+			res.json(result);
                     }
                 }
-            )
+              );
         }
     });
 };
