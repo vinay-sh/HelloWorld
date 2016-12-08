@@ -50,11 +50,11 @@ exports.updateNewResident = function (req,res) {
             res.json(result);
 		}else{
             var coll = mongo.collection('resident')
-            console.log(req.body.email);
+            console.log(req.body.id);
             console.log(TAG + "Connected to DB");
             coll.update(
                 {
-                    "_id": req.body.email,},
+                    "_id": req.body.id,},
             {$set:{
                 "name": req.body.name,
                 "screenName": req.body.screenName,
@@ -131,17 +131,16 @@ exports.fileReport = function(req, res){
             console.log(TAG + "Connected to DB");
             coll.insertOne(
                 {
-                    "res_id": req.body.email,
-                    "location": {
-                        "latitude":req.body.lat,
-                        "longitude":req.body.lon
-                    },
-                    "description":req.bosy.des,
+                    "res_id": req.body.id,
+                       "latitude":req.body.lat,
+                        "longitude":req.body.lon,
+                    "description":req.body.des,
                     "size": req.body.size,
                     "severity": req.body.severity,
                     "status": req.body.status,
-                    "date": req.body.date,
-                    "time":req.body.time
+                    //"date": req.body.date,
+                   // "time":req.body.time,
+                    "image":req.body.image
 
 
                 },function(err, docs){
