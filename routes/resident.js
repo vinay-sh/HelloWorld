@@ -18,7 +18,7 @@ exports.addNewResident = function(req, res){
 			console.log(TAG + "Connected to DB");
             coll.insertOne(
                 {
-                    "_id": req.body.email,
+                    "resident_id": req.body.email,
                     "name": req.body.name,
                     "screenName": req.body.screenName,
                     "email": req.body.email,
@@ -54,7 +54,7 @@ exports.updateNewResident = function (req,res) {
             console.log(TAG + "Connected to DB");
             coll.update(
                 {
-                    "_id": req.body.id,},
+                    "resident_id": req.body.resident_id,},
             {$set:{
                 "name": req.body.name,
                 "screenName": req.body.screenName,
@@ -131,7 +131,7 @@ exports.getResidentData = function(req, res) {
             	console.log(req.body.id);
 		coll.findOne(
                 {
-                    "_id": req.body.id
+                    "resident_id": req.body.resident_id
 
                 },function(err, docs){
                     if(err){
