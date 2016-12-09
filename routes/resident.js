@@ -14,6 +14,7 @@ exports.addNewResident = function(req, res){
 			res.json(result);
 		}else{
             var coll = mongo.collection('resident')
+            var colll = mongo.collection('residentSettings')
     	    console.log(req.body.email);
 			console.log(TAG + "Connected to DB");
             coll.insertOne(
@@ -29,12 +30,29 @@ exports.addNewResident = function(req, res){
                         result.status="Failed to add the new resident to DB";
                         res.json(result);
                     }else{
-                        result.code=200;
-                        result.status="Successfulky added a new resident";
-                        res.json(result);
+                        colll.insertOne(
+                            {
+                                "_id": req.body.email,
+                                "emailNotification": 1,
+                                "statusChange": 1,
+                                "anonymous": 0
+                            },function(err, docs){
+                                if(err){
+                                    result.code=208;
+                                    result.status="Failed to add the new resident to DB";
+                                    res.json(result);
+                                }else{
+                                    result.code=200;
+                                    result.status="Successfulky added a new resident";
+                                    res.json(result);
+                                }
+                            }
+                        )
+
                     }
                 }
             )
+
 		}
     });
 };
@@ -90,12 +108,14 @@ exports.updateSettings = function (req,res) {
             var coll = mongo.collection('residentSettings')
             console.log(req.body.resident_id);
             console.log(TAG + "Connected to DB");
-            coll.insertOne(
+            coll.update(
                 {
-                    "_id": req.body.resident_id,
+                    "_id": req.body.resident_id,},
+                {$set:{
                     "emailNotification": req.body.emailNotification,
                     "statusChange": req.body.statusChange,
                     "anonymous": req.body.anonymous
+                }
                 },function(err, docs){
                     if(err){
                         result.code=208;
