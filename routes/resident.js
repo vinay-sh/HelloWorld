@@ -260,7 +260,7 @@ exports.getReport = function(req, res){
 			res.json(result);
                     }
                 }
-              ); 
+              );
               }
            }
          );
@@ -281,21 +281,26 @@ exports.getReportRid = function(req, res){
                 var coll = mongo.collection("reports");
                 console.log(TAG + "Connected to DB");
                 console.log(req.body.report_id);
-                coll.find({
-                    "report_id":req.body.report_id
-                }).toArray(function(err, docs){
+                coll.findOne(
+                    {
+                        "report_id": req.body.report_id
+
+                    },function(err, docs){
                         if(err){
                             result.code=208;
-                            result.status="Failed to get report";
+                            result.status="Failed to add the new resident to DB";
                             res.json(result);
                         }else{
                             result.code=200;
-                            result.status="Successfully sent report";
+                            result.status="Successfulky added a new resident";
                             result.data = docs;
+
+                            console.log(docs);
+                            console.log(result.data);
                             res.json(result);
                         }
                     }
-                );
+                )
             }
         }
     );
