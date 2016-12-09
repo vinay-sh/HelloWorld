@@ -266,6 +266,41 @@ exports.getReport = function(req, res){
          );
         };
 
+
+exports.getReportRid = function(req, res){
+    console.log(TAG + "Getting Report");
+    var result = {};
+    mongo.connect(function (err, db) {
+            if(err){
+                console.log(TAG + "Unable to connect to DB");
+                result.code = 209;
+                result.status = TAG + "Unable to connect to DB";
+                res.json(result);
+            }else{
+
+                var coll = mongo.collection("reports");
+                console.log(TAG + "Connected to DB");
+                console.log(req.body.report_id);
+                coll.find({
+                    "report_id":req.body.report_id
+                }).toArray(function(err, docs){
+                        if(err){
+                            result.code=208;
+                            result.status="Failed to get report";
+                            res.json(result);
+                        }else{
+                            result.code=200;
+                            result.status="Successfully sent report";
+                            result.data = docs;
+                            res.json(result);
+                        }
+                    }
+                );
+            }
+        }
+    );
+};
+
 exports.deleteReport = function(req, res){
     console.log(TAG + "Deleting Report");
     mongo.connect(function (err, db) {

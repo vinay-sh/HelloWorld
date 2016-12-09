@@ -21,6 +21,11 @@ app.get("/deleteReport",resident.fileReport);
 app.get("/getReport",resident.getReport);
 app.get("/updateSettings",resident.updateSettings);
 
+app.get("/getReportRid",resident.getReportRid);
+
+//getReportRid
+
+
 
 //request handlers for Official
 app.get("/officialNewRegister",official.addNewOfficial);
