@@ -283,7 +283,7 @@ exports.getReportRid = function(req, res){
                 console.log(req.body.report_id);
                 coll.findOne(
                     {
-                        "report_id": req.body.report_id
+                        "_id": req.body.report_id
 
                     },function(err, docs){
                         if(err){
