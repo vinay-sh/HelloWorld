@@ -16,8 +16,8 @@ app.get("/registerNewResident",resident.addNewResident);
 app.get("/updateResident", resident.updateNewResident);
 app.get("/getResidentData",resident.getResidentData);
 app.get("/fileReport",resident.fileReport);
-app.get("/updateReport",resident.fileReport);
-app.get("/deleteReport",resident.fileReport);
+app.get("/updateReport",resident.updateReport);
+//app.get("/deleteReport",resident.dele);
 app.get("/getReport",resident.getReport);
 app.get("/updateSettings",resident.updateSettings);
 

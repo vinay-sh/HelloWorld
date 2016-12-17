@@ -225,8 +225,26 @@ exports.updateReport = function(req, res){
             result.status = TAG + "Unable to connect to DB";
             res.json(result);
         }else{
-
+            var coll = mongo.collection('reports')
             console.log(TAG + "Connected to DB");
+            coll.update(
+                {
+                    "_id": req.body.report_id,},
+                {$set:{
+                    "status_litter": req.body.status_litter,
+                }
+                },function(err, docs){
+                    if(err){
+                        result.code=208;
+                        result.status="Failed to update report";
+                        res.json(result);
+                    }else{
+                        result.code=200;
+                        result.status="Successfully updated report";
+                        res.json(result);
+                    }
+                }
+            )
 
         }
     });
