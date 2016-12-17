@@ -15,6 +15,8 @@ app.get("/",function(req, res){});
 app.get("/registerNewResident",resident.addNewResident);
 app.get("/updateResident", resident.updateNewResident);
 app.get("/getResidentData",resident.getResidentData);
+app.get("/getResidentSettingsData",resident.getResidentSettingsData);
+
 app.get("/fileReport",resident.fileReport);
 app.get("/updateReport",resident.updateReport);
 //app.get("/deleteReport",resident.dele);
