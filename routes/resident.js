@@ -291,7 +291,7 @@ exports.updateReport = function(req, res){
             var o_id = new ObjectId(id);
 
             var residentColl = mongo.collection('residentSettings')
-            var resident_id = req.body.resident_id;
+            var resident_id = new ObjectId(req.body.resident_id);
             var sendEmailRequired = false;
 
             coll.findOne({
@@ -314,7 +314,8 @@ exports.updateReport = function(req, res){
             });
             coll.update(
                 {
-                    "_id": o_id},
+                    "_id": o_id
+                },
                 {$set:{
                     "status_litter": req.body.status_litter,
                 }
