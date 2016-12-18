@@ -291,7 +291,7 @@ exports.updateReport = function(req, res){
             var o_id = new ObjectId(id);
 
             var residentColl = mongo.collection('residentSettings')
-            var resident_id = new ObjectId(req.body.resident_id);
+            var resident_id = req.body.resident_id;
             var sendEmailRequired = false;
 
             coll.findOne({
@@ -302,13 +302,13 @@ exports.updateReport = function(req, res){
                     sendEmailRequired = false;
                 }else{
                     console.log(docs);
-                    // if(data.anonymous === 0){
-                    //     if(data.emailNotification === 1){
-                    //         if(data.statusChange === 1){
-                    //             sendEmailRequired = true;
-                    //         }
-                    //     }
-                    // }
+                    if(docs.anonymous === 0){
+                        if(docs.emailNotification === 1){
+                            if(docs.statusChange === 1){
+                                sendEmailRequired = true;
+                            }
+                        }
+                    }
                     console.log(TAG + "email " + sendEmailRequired);
                 }
             });
