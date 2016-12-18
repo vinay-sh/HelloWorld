@@ -329,7 +329,7 @@ exports.updateReport = function(req, res){
                                     if(sendEmailRequired){
                                         var mailOptions = {
                                             from: '"iReport" <cmpe275@gmail.com>', // sender address
-                                            to: resident_id, // list of receivers
+                                            to: req.body.resident_id, // list of receivers
                                             subject: 'Report Status Change', // Subject line
                                             text: 'Your status report with ' + req.body.report_id + 'has changed to ' + req.body.status_litter, // plaintext body
                                             //html: '<b>Hello world ?</b>' // html body
