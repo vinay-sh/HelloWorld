@@ -286,13 +286,32 @@ exports.updateReport = function(req, res){
         }else{
             var coll = mongo.collection('reports')
             console.log(TAG + "Connected to DB");
-            //var up =
-         var ObjectId = require('mongodb').ObjectId;
-        var id = req.body.report_id;
-        var o_id = new ObjectId(id);
-        //db.test.find({_id:o_id})
-        
+            var ObjectId = require('mongodb').ObjectId;
+            var id = req.body.report_id;
+            var o_id = new ObjectId(id);
 
+            var residentColl = mongo.collection('residentSettings')
+            var resident_id = req.body.resident_id;
+            var sendEmailRequired = false;
+
+            coll.findOne({
+                "_id": resident_id
+            },function(err, doc){
+                if(err){
+                    console.log(TAG + "Unable to fetch user data");
+                    sendEmailRequired = false;
+                }else{
+                    console.log(docs.data);
+                    if(data.anonymous === 0){
+                        if(data.emailNotification === 1){
+                            if(data.statusChange === 1){
+                                sendEmailRequired = true;
+                            }
+                        }
+                    }
+                    console.log(TAG + "email " + sendEmailRequired);
+                }
+            });
             coll.update(
                 {
                     "_id": o_id},
@@ -305,6 +324,22 @@ exports.updateReport = function(req, res){
                         result.status="Failed to update report";
                         res.json(result);
                     }else{
+                        if(sendEmailRequired){
+                            var mailOptions = {
+                                from: '"iReport" <cmpe275@gmail.com>', // sender address
+                                to: resident_id, // list of receivers
+                                subject: 'Report Status Change', // Subject line
+                                text: 'Your status report with ' + req.body.report_id + 'has changed to ' + req.body.status_litter, // plaintext body
+                                //html: '<b>Hello world ?</b>' // html body
+                            };
+                            transporter.sendMail(mailOptions, function(error, info){
+                                if(error){
+                                    console.log(error);
+                                }else{
+                                    console.log('Message sent: ' + info.response);
+                                }
+                            });
+                        }
                         result.code=200;
                         result.status="Successfully updated report";
                         res.json(result);
