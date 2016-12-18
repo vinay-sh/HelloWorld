@@ -295,56 +295,59 @@ exports.updateReport = function(req, res){
 
             var sendEmailRequired = false;
 
-            coll.findOne({
-                "_id": req.body.resident_id
-            },function(err, docs){
-                if(err){
-                    console.log(TAG + "Unable to fetch user data");
-                    sendEmailRequired = false;
-                }else{
-                    console.log(docs);
-                    if(docs.anonymous === 0){
-                        if(docs.emailNotification === 1){
-                            if(docs.statusChange === 1){
-                                sendEmailRequired = true;
-                            }
-                        }
-                    }
-                    console.log(TAG + "email " + sendEmailRequired);
-                }
-            });
-            coll.update(
+            residentColl.findOne(
                 {
-                    "_id": o_id
-                },
-                {$set:{
-                    "status_litter": req.body.status_litter,
-                }
+                    "_id": req.body.resident_id
+
                 },function(err, docs){
                     if(err){
-                        result.code=208;
-                        result.status="Failed to update report";
-                        res.json(result);
+                        sendEmailRequired = false;
+                        console.log(TAG + "Unable to get settings");
                     }else{
-                        if(sendEmailRequired){
-                            var mailOptions = {
-                                from: '"iReport" <cmpe275@gmail.com>', // sender address
-                                to: resident_id, // list of receivers
-                                subject: 'Report Status Change', // Subject line
-                                text: 'Your status report with ' + req.body.report_id + 'has changed to ' + req.body.status_litter, // plaintext body
-                                //html: '<b>Hello world ?</b>' // html body
-                            };
-                            transporter.sendMail(mailOptions, function(error, info){
-                                if(error){
-                                    console.log(error);
-                                }else{
-                                    console.log('Message sent: ' + info.response);
+                        console.log(docs);
+                        if(docs.anonymous === 0){
+                            if(docs.emailNotification === 1){
+                                if(docs.statusChange === 1){
+                                    sendEmailRequired = true;
                                 }
-                            });
+                            }
                         }
-                        result.code=200;
-                        result.status="Successfully updated report";
-                        res.json(result);
+                        console.log(TAG + "email " + sendEmailRequired);
+                        coll.update(
+                            {
+                                "_id": o_id
+                            },
+                            {$set:{
+                                "status_litter": req.body.status_litter,
+                            }
+                            },function(err, docs){
+                                if(err){
+                                    result.code=208;
+                                    result.status="Failed to update report";
+                                    res.json(result);
+                                }else{
+                                    if(sendEmailRequired){
+                                        var mailOptions = {
+                                            from: '"iReport" <cmpe275@gmail.com>', // sender address
+                                            to: resident_id, // list of receivers
+                                            subject: 'Report Status Change', // Subject line
+                                            text: 'Your status report with ' + req.body.report_id + 'has changed to ' + req.body.status_litter, // plaintext body
+                                            //html: '<b>Hello world ?</b>' // html body
+                                        };
+                                        transporter.sendMail(mailOptions, function(error, info){
+                                            if(error){
+                                                console.log(error);
+                                            }else{
+                                                console.log('Message sent: ' + info.response);
+                                            }
+                                        });
+                                    }
+                                    result.code=200;
+                                    result.status="Successfully updated report";
+                                    res.json(result);
+                                }
+                            }
+                        )
                     }
                 }
             )
