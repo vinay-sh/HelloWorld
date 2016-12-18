@@ -291,11 +291,12 @@ exports.updateReport = function(req, res){
             var o_id = new ObjectId(id);
 
             var residentColl = mongo.collection('residentSettings')
-            var resident_id = req.body.resident_id;
+            console.log(req.body.resident_id);
+
             var sendEmailRequired = false;
 
             coll.findOne({
-                "_id": resident_id,
+                "_id": req.body.resident_id,
             },function(err, docs){
                 if(err){
                     console.log(TAG + "Unable to fetch user data");
