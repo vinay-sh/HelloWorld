@@ -301,14 +301,14 @@ exports.updateReport = function(req, res){
                     console.log(TAG + "Unable to fetch user data");
                     sendEmailRequired = false;
                 }else{
-                    console.log(doc.data);
-                    if(data.anonymous === 0){
-                        if(data.emailNotification === 1){
-                            if(data.statusChange === 1){
-                                sendEmailRequired = true;
-                            }
-                        }
-                    }
+                    console.log(doc);
+                    // if(data.anonymous === 0){
+                    //     if(data.emailNotification === 1){
+                    //         if(data.statusChange === 1){
+                    //             sendEmailRequired = true;
+                    //         }
+                    //     }
+                    // }
                     console.log(TAG + "email " + sendEmailRequired);
                 }
             });
