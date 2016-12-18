@@ -288,7 +288,7 @@ exports.updateReport = function(req, res){
             console.log(TAG + "Connected to DB");
             coll.update(
                 {
-                    "_id": req.body.report_id,},
+                    "_id": req.body.report_id},
                 {$set:{
                     "status_litter": req.body.status_litter,
                 }
