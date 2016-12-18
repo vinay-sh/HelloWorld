@@ -3,7 +3,12 @@ var mongo = require("./dbconfig");
 var TAG = "RESIDENT : ";
 var result = {};
 var nodemailer = require('nodemailer');
-var transporter = nodemailer.createTransport('smtps://user%40gmail.com:pass@smtp.gmail.com');
+var transporter = nodemailer.createTransport({service: 'Gmail',
+                                            auth:{
+                                                user: 'cmpe275@gmail.com',
+                                                pass: 'chaashvinasv'
+                                            }
+});
 
 exports.addNewResident = function(req, res){
     console.log(TAG + "Adding resident");
@@ -47,7 +52,7 @@ exports.addNewResident = function(req, res){
                                     result.code=200;
                                     result.status="Successfulky added a new resident";
                                     var mailOptions = {
-                                        from: '"CMPE275" <chaitanya.wagle@gmail.com>', // sender address
+                                        from: '"CMPE275" <cmpe275@gmail.com>', // sender address
                                         to: req.body.email, // list of receivers
                                         subject: 'Welcome to iReport', // Subject line
                                         text: 'Welcome from iReport', // plaintext body
