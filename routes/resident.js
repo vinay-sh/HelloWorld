@@ -296,7 +296,7 @@ exports.updateReport = function(req, res){
             var sendEmailRequired = false;
 
             coll.findOne({
-                "_id": req.body.resident_id,
+                "_id": req.body.resident_id
             },function(err, docs){
                 if(err){
                     console.log(TAG + "Unable to fetch user data");
