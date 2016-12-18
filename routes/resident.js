@@ -274,6 +274,8 @@ exports.fileReport = function(req, res){
 
 exports.updateReport = function(req, res){
     console.log(TAG + "Updating Report");
+    console.log(TAG + req.body.report_id);
+    console.log(TAG + req.body.status_litter);
     var result = {};
     mongo.connect(function (err, db) {
         if(err){
