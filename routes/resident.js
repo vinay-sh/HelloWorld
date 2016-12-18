@@ -2,6 +2,7 @@ var mongo = require("./dbconfig");
 
 var TAG = "RESIDENT : ";
 var result = {};
+var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport('smtps://user%40gmail.com:pass@smtp.gmail.com');
 
 exports.addNewResident = function(req, res){
