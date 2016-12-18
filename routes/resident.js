@@ -213,11 +213,11 @@ exports.getResidentSettingsData = function(req, res) {
                 },function(err, docs){
                     if(err){
                         result.code=208;
-                        result.status="Failed to add the new resident to DB";
+                        result.status="Failed to get settings dta";
                         res.json(result);
                     }else{
                         result.code=200;
-                        result.status="Successfulky added a new resident";
+                        result.status="Successfully got settings data";
                         result.data = docs;
 
                         console.log(docs);
@@ -286,9 +286,16 @@ exports.updateReport = function(req, res){
         }else{
             var coll = mongo.collection('reports')
             console.log(TAG + "Connected to DB");
+            //var up =
+         var ObjectId = require('mongodb').ObjectId;
+        var id = req.body.report_id;
+        var o_id = new ObjectId(id);
+        //db.test.find({_id:o_id})
+        
+
             coll.update(
                 {
-                    "_id": req.body.report_id},
+                    "_id": o_id},
                 {$set:{
                     "status_litter": req.body.status_litter,
                 }
