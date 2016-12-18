@@ -295,13 +295,13 @@ exports.updateReport = function(req, res){
             var sendEmailRequired = false;
 
             coll.findOne({
-                "_id": resident_id
-            },function(err, doc){
+                "_id": resident_id,
+            },function(err, docs){
                 if(err){
                     console.log(TAG + "Unable to fetch user data");
                     sendEmailRequired = false;
                 }else{
-                    console.log(doc);
+                    console.log(docs);
                     // if(data.anonymous === 0){
                     //     if(data.emailNotification === 1){
                     //         if(data.statusChange === 1){
