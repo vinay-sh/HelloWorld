@@ -5,6 +5,7 @@ var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({limit:'5mb',extended:false}));
 app.use(bodyParser.json({limit:'5mb'}));
 
+var nodemailer = require('nodemailer');
 var resident = require('./routes/resident');
 var official = require('./routes/official');
 var report = require('./routes/report');
@@ -26,9 +27,6 @@ app.get("/updateSettings",resident.updateSettings);
 app.get("/getReportRid",resident.getReportRid);
 
 //getReportRid
-
-
-
 //request handlers for Official
 app.get("/officialNewRegister",official.addNewOfficial);
 app.get("/updateOfficial",official.updateOfficial);

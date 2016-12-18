@@ -2,6 +2,7 @@ var mongo = require("./dbconfig");
 
 var TAG = "RESIDENT : ";
 var result = {};
+var transporter = nodemailer.createTransport('smtps://user%40gmail.com:pass@smtp.gmail.com');
 
 exports.addNewResident = function(req, res){
     console.log(TAG + "Adding resident");
@@ -44,15 +45,26 @@ exports.addNewResident = function(req, res){
                                 }else{
                                     result.code=200;
                                     result.status="Successfulky added a new resident";
+                                    var mailOptions = {
+                                        from: '"CMPE275" <chaitanya.wagle@gmail.com>', // sender address
+                                        to: req.body.email, // list of receivers
+                                        subject: 'Welcome to iReport', // Subject line
+                                        text: 'Welcome from iReport', // plaintext body
+                                        //html: '<b>Hello world ?</b>' // html body
+                                    };
+                                    transporter.sendMail(mailOptions, function(error, info){
+                                        if(error){
+                                            return console.log(error);
+                                        }
+                                        console.log('Message sent: ' + info.response);
+                                    });
                                     res.json(result);
                                 }
                             }
                         )
-
                     }
                 }
             )
-
 		}
     });
 };
@@ -90,7 +102,6 @@ exports.updateNewResident = function (req,res) {
                     }
                 }
             )
-
 		}
     });
 };
